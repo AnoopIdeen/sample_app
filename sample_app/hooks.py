@@ -12,7 +12,7 @@ app_license = "asd"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/sample_app/css/sample_app.css"
-# app_include_js = "/assets/sample_app/js/sample_app.js"
+app_include_js = "/assets/sample_app/js/sample_app_v6.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/sample_app/css/sample_app.css"
@@ -215,3 +215,12 @@ app_license = "asd"
 # auth_hooks = [
 #	"sample_app.auth.validate"
 # ]
+
+website_redirects = [
+    {"source": "/", "target": "/sample_app"},
+    {"source": "/app", "target": "/sample_app"},
+]
+
+website_route_rules = [
+    {"from_route": "/sample_app/<path:app_path>", "to_route": "sample_app"},
+]
