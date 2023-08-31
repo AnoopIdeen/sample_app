@@ -17,12 +17,7 @@ const router = useRouter()
 const logout = () => {
     call('logout')
         .then(response => {
-            console.log(response);
-            localStorage.setItem("token_user", null);
-
             router.push('/login')
-
-
         })
         .catch(error => {
             console.log(error);

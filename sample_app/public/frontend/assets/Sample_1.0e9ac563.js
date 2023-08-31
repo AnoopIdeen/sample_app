@@ -1,0 +1,1 @@
+import{_ as e,b as o,o as s,n as a}from"./vendor.30472ecf.js";const t={name:"Sample_1"},n={class:"max-w-3xl py-12 mx-auto"},c=a("p",null,"Login Page",-1),_=[c];function r(p,d,l,i,m,f){return s(),o("div",n,_)}var x=e(t,[["render",r]]);export{x as default};
