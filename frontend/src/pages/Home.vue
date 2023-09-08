@@ -1,54 +1,23 @@
-<!-- <template>
-  <div class="max-w-3xl py-12 mx-auto">
-    <Button
-      icon-left="code"
-      @click="$resources.ping.fetch"
-      :loading="$resources.ping.loading"
-    >
-      Click to send 'ping' request
-    </Button>
-    <div>
-      {{ $resources.ping.data }}
-    </div>
-    <pre>{{ $resources.ping }}</pre>
-
-    <Button @click="showDialog = true">Open Dialog</Button>
-    <Dialog title="Title" v-model="showDialog"> Dialog content </Dialog>
-  </div>
-</template>
-
-<script>
-import { Dialog } from 'frappe-ui'
-
-export default {
-  name: 'Home',
-  data() {
-    return {
-      showDialog: false,
-    }
-  },
-  resources: {
-    ping: {
-      url: 'ping',
-    },
-  },
-  components: {
-    Dialog,
-  },
-}
-</script> -->
-
 
 <template>
   <AppBar></AppBar>
   <div class="container">
-    <div class="menu-card" @click="nonFinancial" style="margin-right: 20px;">
-      <h2>Menu Card 1</h2>
-      <p>Menu item 1 description.</p>
-    </div>
-    <div class="menu-card" @click="financial">
-      <h2>Menu Card 2</h2>
-      <p>Menu item 2 description.</p>
+
+    <div class="flex flex-wrap">
+      <div class="flex align-items-center justify-content-center menu-card" @click="nonFinancial"
+        style="margin-right: 20px;">
+        <h2>Doctype List 1</h2>
+
+      </div>
+      <div class="flex align-items-center justify-content-center menu-card" @click="financial">
+        <h2>Doctype List 2</h2>
+
+      </div>
+      <div class="flex" style="min-width: 100vh; min-height: 100px">
+        <pre>
+        {{ vehiclesDoc.data }}
+      </pre>
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +25,29 @@ export default {
 
 <script setup>
 import AppBar from '../components/AppBar.vue';
+import { createListResource, createResource } from 'frappe-ui';
 var baseUrl = window.location.origin
+
+const vehiclesDoc = createListResource({
+  doctype: 'Vehicles',
+  fields: ['name', 'vehicle'],
+  // realtime: true,
+  auto: true,
+})
+
+// const count = createResource({
+//   url: 'sample_app.sample_app.doctype.vehicles.vehicles.sample_function',
+//   params: {
+//     doctype: 'Vehicle'
+//   },
+//   onSuccess(data) {
+//     console.log('====================================');
+//     console.log(data);
+//     console.log('====================================');
+//   },
+//   auto: true
+// })
+// count.fetch()
 
 
 const nonFinancial = () => {
@@ -82,6 +73,13 @@ const financial = () => {
   padding: 20px;
   margin-bottom: 20px;
   width: 25%;
+  height: 12%;
   float: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.menu-card:hover {
+  background-color: #f4f4f4;
 }
 </style>

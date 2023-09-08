@@ -9,6 +9,8 @@ app_license = "asd"
 
 # Includes in <head>
 # ------------------
+app_logo_url = "/assets/sample_app/images/logo.png"
+
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/sample_app/css/sample_app.css"
@@ -154,6 +156,9 @@ app_include_js = "/assets/sample_app/js/sample_app_v6.js"
 
 # Overriding Methods
 # ------------------------------
+override_doctype_class = {
+	"User": "sample_app.sample_app.overrides.custom_user.CustomUser"
+}
 #
 # override_whitelisted_methods = {
 #	"frappe.desk.doctype.event.event.get_events": "sample_app.event.get_events"

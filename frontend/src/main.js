@@ -10,6 +10,7 @@ import { socketio_port } from '../../../../sites/common_site_config.json'
 
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import '../node_modules/primeflex/primeflex.css'
+import 'primeicons/primeicons.css';
 
 import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
