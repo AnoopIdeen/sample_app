@@ -9,7 +9,7 @@ app_license = "asd"
 
 # Includes in <head>
 # ------------------
-app_logo_url = "/assets/sample_app/images/logo.png"
+app_logo_url = "/assets/sample_app/images/logo-f.png"
 
 
 # include js, css files in header of desk.html

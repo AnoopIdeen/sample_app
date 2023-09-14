@@ -71,6 +71,13 @@ router.beforeEach((to, from, next) => {
       if (key === 'user_id' && value != 'Guest') {
         isAuthenticated = true
       }
+      if (key === 'full_name') {
+        localStorage.setItem('username', value)
+      }
+      if (key === 'user_id') {
+        localStorage.setItem('user_id', value)
+      }
+
     })
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {

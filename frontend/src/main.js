@@ -18,6 +18,12 @@ import Password from 'primevue/password';
 import Button from 'primevue/button';
 import Message from 'primevue/message';
 import Toast from 'primevue/toast';
+import Divider from 'primevue/divider';
+import SplitButton from 'primevue/splitbutton';
+import Badge from 'primevue/badge';
+import BadgeDirective from 'primevue/badgedirective';
+import Menu from 'primevue/menu';
+
 
 import ToastService from 'primevue/toastservice';
 
@@ -53,10 +59,17 @@ app.use(ToastService);
 //     })
 // )
 
+app.directive('badge', BadgeDirective);
+
+
 app.component('Card', Card)
 app.component('InputText', InputText)
 app.component('Password', Password)
 app.component('Button', Button)
 app.component('Message', Message)
 app.component('Toast', Toast)
+app.component('Divider', Divider)
+app.component('SplitButton', SplitButton)
+app.component('Badge', Badge)
+app.component('Menu', Menu)
 app.mount('#app')

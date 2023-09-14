@@ -1,15 +1,17 @@
 <template>
-    <div class="flex align-items-center" style="height: 100vh; width: 100%; background-color: #f1f5f7;">
+    <div class="flex align-items-center" style="height: 100vh; width: 100%; background-color: var(--background-color);">
         <div v-if="!is_forgot" class="login-container lg:col-6 lg:col-offset-3 md:col-12 md:col-offset-0">
             <div class="flex justify-content-center mb-5">
-                <img src="../logo/logo.png" alt="logo">
+                <img class="logo" src="../logo/logo-f.png" alt="logo">
             </div>
             <div class="flex flex-wrap align-items-center mb-3">
-                <InputText type="email" id="email" v-model="username" placeholder="Email" class="input-text p-3" />
+                <InputText type="email" id="email" v-model="username" placeholder="Email" class="input-text p-3"
+                    @keyup.enter="login" />
             </div>
             <div class="flex flex-wrap align-items-center">
                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="w-full mb-3"
-                    inputClass="w-full" inputStyle="padding:1rem; border: none; font-size: 13px; border-radius: 15px;"
+                    inputClass="w-full"
+                    inputStyle="padding:1rem; border: 1px solid #DCD2FF; font-size: 13px; border-radius: 15px;"
                     :feedback="false" @keyup.enter="login">
                 </Password>
             </div>
@@ -24,13 +26,14 @@
         </div>
         <div v-else class="login-container lg:col-6 lg:col-offset-3 md:col-12 md:col-offset-0">
             <div class="flex justify-content-center mb-5">
-                <img src="../logo/logo.png" alt="logo">
+                <img class="logo" src="../logo/logo-f.png" alt="logo">
             </div>
-            <div class="flex flex-wrap align-items-center mb-3" style="justify-content: center;">
-                <p class="font-semibold">Forgot Password</p>
-            </div>
+            <!-- <div class="flex flex-wrap align-items-center mb-3" style="justify-content: center;">
+                <p class="font-semibold" style="color: var(--primary-color);">Forgot Password</p>
+            </div> -->
             <div class="flex flex-wrap align-items-center mb-3">
-                <InputText type="email" id="re-email" v-model="reset_email" placeholder="Email" class="input-text p-3" />
+                <InputText type="email" id="re-email" v-model="reset_email" placeholder="Email" class="input-text p-3"
+                    @keyup.enter="reset_password" />
             </div>
             <Button label="Reset Password" class="button-submit p-3 mt-4 font-normal" @click="reset_password"
                 :disabled="loading"></Button>
@@ -43,12 +46,7 @@
                 </a>
             </div>
         </div>
-        <div style="position: fixed; bottom: 0; width: 100%; text-align: center;">
-            <p style="font-size: 13px;" class="mb-5">
-                Developed by <a style="color: #53b5c6;" target="_blank"
-                    href="https://www.ideenkreisetech.com/">Ideenkreisetech</a>
-            </p>
-        </div>
+        <Footer />
         <Toast />
     </div>
 </template>
@@ -57,6 +55,7 @@
 <script setup>
 import { ref } from 'vue'
 import { call } from 'frappe-ui'
+import Footer from '../components/Footer.vue';
 import { useRouter } from 'vue-router'
 
 import { useToast } from "primevue/usetoast";
@@ -111,6 +110,17 @@ const reset_password = () => {
 </script>
 
 <style scoped>
+:root {
+    --primary-color: #7C59F4;
+    --primary-color-hoover: #8c6df0;
+    --background-color: #ffffff;
+    --textbox-border-color: #DCD2FF;
+}
+
+.logo {
+    height: 80px;
+}
+
 .login-container {
     text-align: center;
     padding: 0px 150px;
@@ -139,12 +149,23 @@ const reset_password = () => {
     border-radius: 15px;
     border: none;
     font-size: 13px;
+    border: 1px solid #DCD2FF;
+    /* border-color: var(--textbox-border-color); */
+}
+
+.input-text:enabled:hover {
+    /* color: #ffffff; */
+    border: 1px solid #DCD2FF;
+}
+
+.p-inputtext:enabled:focus {
+    border-color: #DCD2FF;
 }
 
 .forgot-password {
     font-size: 13px;
     font-weight: 200;
-    color: #53b5c6;
+    color: #7C59F4;
 }
 
 .button-submit {
@@ -152,14 +173,14 @@ const reset_password = () => {
     border-radius: 15px;
     border: none;
     font-size: 15px;
-    background-color: #53b5c6;
+    background-color: #7C59F4;
 
 }
 
 .p-button:enabled:hover {
 
-    background: #6bc6d6;
+    background: #8c6df0;
     color: #ffffff;
-    border-color: #6bc6d6;
+    border-color: #8c6df0;
 }
 </style>
