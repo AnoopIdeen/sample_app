@@ -1,39 +1,36 @@
-
 <template>
   <AppBar></AppBar>
 
   <div class="container">
     <div class="flex flex-row flex-wrap">
-
-      <div class="lg:col-3 px-3 text-center ">
+      <div class="lg:col-3 px-3 text-center">
         <div class="menu-card">
-          <img src="../logo/total-notes.png" alt="" class="icon-menu">
-          <h5>100</h5>
+          <img src="../logo/total-notes.png" alt="" class="icon-menu" />
+          <h5>{{ total_notes }}</h5>
           <p>Total Notes</p>
         </div>
       </div>
       <div class="lg:col-3 px-3 text-center">
         <div class="menu-card">
-          <img src="../logo/pending-notes.png" alt="" class="icon-menu">
-          <h5>20</h5>
+          <img src="../logo/pending-notes.png" alt="" class="icon-menu" />
+          <h5>{{ pending_notes }}</h5>
           <p>Pending Notes</p>
         </div>
       </div>
       <div class="lg:col-3 px-3 text-center">
         <div class="menu-card">
-          <img src="../logo/approved-notes.png" alt="" class="icon-menu">
-          <h5>70</h5>
+          <img src="../logo/approved-notes.png" alt="" class="icon-menu" />
+          <h5>{{ approved_notes }}</h5>
           <p>Approved Notes</p>
         </div>
       </div>
       <div class="lg:col-3 px-3 text-center">
         <div class="menu-card">
-          <img src="../logo/rejected-notes.png" alt="" class="icon-menu">
-          <h5>10</h5>
+          <img src="../logo/rejected-notes.png" alt="" class="icon-menu" />
+          <h5>{{ rejected_notes }}</h5>
           <p>Rejected Notes</p>
         </div>
       </div>
-
     </div>
     <div class="px-3">
       <p class="my-6" style="border-bottom: 1px solid #d1d1d1"></p>
@@ -41,23 +38,36 @@
     </div>
     <div class="px-3">
       <div class="flex flex-row flex-wrap">
+        <!-- financial note -->
+        <div class="financial_notebtn flex justify-content-between flex-wrap">
+          <button class="flex-grow-1 text-left" @click="financial_list">
+            Financial Note
+          </button>
+          <span @click="add_financial"
+            ><img src="../logo/green_add.png" alt="" class="plus_img"
+          /></span>
+        </div>
+        <!-- non financial note -->
+        <div
+          class="non_financial_notebtn flex justify-content-between flex-wrap"
+        >
+          <button class="flex-grow-1 text-left" @click="non_financial_list">
+            Non Financial Note
+          </button>
+          <span @click="add_non_financial"
+            ><img src="../logo/purple_add.png" alt="" class="plus_img"
+          /></span>
+        </div>
 
-
-
-
-        <button class="financial_notebtn flex justify-content-between flex-wrap" @click="financial_list">
-          Financial Note <span @click="add_financial"><img src="../logo/green_add.png" alt="" class="plus_img" /></span>
+        <button
+          class="go_dashboardbtn flex justify-content-between flex-wrap"
+          @click="to_dashboard"
+        >
+          Go to Dashboard
+          <span
+            ><img src="../logo/yellow_add.png" alt="" class="plus_img"
+          /></span>
         </button>
-        <button class="non_financial_notebtn flex justify-content-between flex-wrap" @click="non_financial_list">
-          Non Financial Note <span @click="add_non_financial"><img src="../logo/purple_add.png" alt=""
-              class="plus_img" /></span>
-        </button>
-        <button class="go_dashboardbtn flex justify-content-between flex-wrap" @click="to_dashboard">
-          Go to Dashboard <span><img src="../logo/yellow_add.png" alt="" class="plus_img" /></span>
-        </button>
-
-
-
 
         <!-- <SplitButton label="Save" menuButtonIcon="pi pi-plus" @click="save" :model="items" /> -->
       </div>
@@ -82,10 +92,10 @@
   </div>
 </template>
 
-
 <script setup>
-import AppBar from '../components/AppBar.vue';
-import { createListResource, createResource } from 'frappe-ui';
+import AppBar from '../components/AppBar.vue'
+import { ref } from 'vue'
+import { createListResource, createResource } from 'frappe-ui'
 var baseUrl = window.location.origin
 
 // const vehiclesDoc = createListResource({
@@ -94,40 +104,42 @@ var baseUrl = window.location.origin
 //   // realtime: true,
 //   auto: true,
 // })
+const total_notes = ref(0)
+const rejected_notes = ref(0)
+const pending_notes = ref(0)
+const approved_notes = ref(0)
 
-// const count = createResource({
-//   url: 'sample_app.sample_app.doctype.vehicles.vehicles.sample_function',
-//   params: {
-//     doctype: 'Vehicle'
-//   },
-//   onSuccess(data) {
-//     console.log('====================================');
-//     console.log(data);
-//     console.log('====================================');
-//   },
-//   auto: true
-// })
+const count = createResource({
+  url: 'owl_app.owl_app.doctype.financial_note.financial_note.get_dashboard_details',
+
+  onSuccess(data) {
+    total_notes.value = data.total_count
+    rejected_notes.value = data.rejected_count
+    pending_notes.value = data.pending_count
+    approved_notes.value = data.approved_count
+  },
+  auto: true,
+})
 // count.fetch()
 
-
 const financial_list = () => {
-  window.location.href = baseUrl + '/app/vehicles';
+  window.location.href = baseUrl + '/app/financial-note/view/list'
 }
 const add_financial = () => {
-  window.location.href = baseUrl + '/app/vehicles/new-vehicles-1';
+  window.location.href = baseUrl + '/app/financial-note/new-financial-note-1'
 }
 
 const non_financial_list = () => {
-  window.location.href = baseUrl + '/app/vehicles';
+  window.location.href = baseUrl + '/app/non-financial-note/view/list'
 }
 const add_non_financial = () => {
-  window.location.href = baseUrl + '/app/vehicles/new-vehicles-1';
+  window.location.href =
+    baseUrl + '/app/non-financial-note/new-non-financial-note-1'
 }
 
 const to_dashboard = () => {
-  window.location.href = baseUrl + '/app/vehicles/new-vehicles-1';
+  window.location.href = baseUrl + '/app/query-report/Note Status'
 }
-
 </script>
 <style scoped>
 .container {
@@ -139,8 +151,8 @@ const to_dashboard = () => {
 
 .menu-card {
   border-radius: 30px;
-  background: #FFF;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
+  background: #fff;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
   padding: 35px;
 }
 
@@ -164,11 +176,10 @@ const to_dashboard = () => {
   transition: 0.4s;
 }
 
-
 .financial_notebtn {
-  background-color: #E9F9E8;
-  border: 1px solid #22BC3A;
-  color: #22BC3A;
+  background-color: #e9f9e8;
+  border: 1px solid #22bc3a;
+  color: #22bc3a;
   padding: 15px;
   border-radius: 15px;
   font-size: 14px;
@@ -183,13 +194,13 @@ const to_dashboard = () => {
 }
 
 .financial_notebtn:hover {
-  background-color: #C4EDC1;
+  background-color: #c4edc1;
 }
 
 .non_financial_notebtn {
-  background-color: #F6F0FF;
-  border: 1px solid #8565F3;
-  color: #8565F3;
+  background-color: #f6f0ff;
+  border: 1px solid #8565f3;
+  color: #8565f3;
   padding: 15px;
   border-radius: 15px;
   font-size: 14px;
@@ -201,13 +212,13 @@ const to_dashboard = () => {
 }
 
 .non_financial_notebtn:hover {
-  background-color: #D0C5F5;
+  background-color: #d0c5f5;
 }
 
 .go_dashboardbtn {
-  background-color: #FFFCE4;
-  border: 1px solid #F6C128;
-  color: #F6C128;
+  background-color: #fffce4;
+  border: 1px solid #f6c128;
+  color: #f6c128;
   padding: 15px;
   border-radius: 15px;
   font-size: 14px;
@@ -219,7 +230,6 @@ const to_dashboard = () => {
 }
 
 .go_dashboardbtn:hover {
-  background-color: #F8F2C1;
+  background-color: #f8f2c1;
 }
 </style>
-

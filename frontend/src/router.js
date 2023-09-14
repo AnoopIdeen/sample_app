@@ -72,10 +72,10 @@ router.beforeEach((to, from, next) => {
         isAuthenticated = true
       }
       if (key === 'full_name') {
-        localStorage.setItem('username', value)
+        localStorage.setItem('username', decodeURIComponent(value))
       }
       if (key === 'user_id') {
-        localStorage.setItem('user_id', value)
+        localStorage.setItem('user_id', decodeURIComponent(value))
       }
 
     })
